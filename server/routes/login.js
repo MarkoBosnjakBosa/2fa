@@ -23,7 +23,7 @@ module.exports = function(app, bcryptjs, speakeasy, models) {
 									response.end();
 								}
 							} else {
-								response.status(200).json({authentication: true, valid: false, otpToken: true});
+								response.status(200).json({authentication: true, valid: false, otpToken: true, username: user.username});
 								response.end();
 							}
 						} else {

@@ -36,7 +36,8 @@
                     return;
                 }
                 var options = {headers: {["x-otp"]: this.otpToken}};
-				var body = {username: "admin", otpToken: this.otpToken};
+                var username = this.$store.getters.isAuthenticated;
+				var body = {username: username, otpToken: this.otpToken};
 				axios.post(process.env.VUE_APP_BASE_URL + process.env.VUE_APP_SERVER_PORT + "/login", body, options).then(response => {
 					if(response.data.authentication && response.data.valid) {
                         this.$router.push("/home");

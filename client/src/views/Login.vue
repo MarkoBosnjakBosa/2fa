@@ -95,6 +95,8 @@
 							this.$router.push("/home");
 						} else {
 							if(response.data.otpToken) {
+								const username = response.data.username;
+								this.$store.dispatch("authenticate", {username});
 								this.$router.push("/authentication");
 							}
 						}
