@@ -19,13 +19,13 @@ export default new Vuex.Store({
 	plugins: [createPersistedState()],
 	state: getDefaultState(),
 	getters: {
-		isLoggedIn: state => { return state.token; },
-		getUser: state => { return state.user; },
+		isLoggedIn: state => { return state.jwtData.token; },
+		getUser: state => { return state.jwtData.user; },
 		isAuthenticated: state => { return state.authenticationData.username; }
 	},
 	mutations: {
-		SET_TOKEN: (state, token) => { state.token = token; },
-		SET_USER: (state, user) => { state.user = user; },
+		SET_TOKEN: (state, token) => { state.jwtData.token = token; },
+		SET_USER: (state, user) => { state.jwtData.user = user; },
 		SET_USERNAME: (state, username) => { state.authenticationData.username = username },
 		RESET: state => { Object.assign(state, getDefaultState()); }
 	},

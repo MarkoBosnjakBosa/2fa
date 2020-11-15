@@ -59,7 +59,7 @@
 		name: "setup",
 		data: function(){
             return {
-                username: "admin",
+                username: "",
                 authentication: {
                     secret: "",
                     tempSecret: ""
@@ -68,6 +68,11 @@
             }
         },
 		methods: {
+            isLoggedIn() {
+                if(!this.$store.getters.isLoggedIn) this.$router.push("/login");
+                this.username = this.$store.getters.getUser.username;
+                this.checkStatus();
+            },
             getAuthentication() {
                 axios.get(process.env.VUE_APP_BASE_URL + process.env.VUE_APP_SERVER_PORT + "/getAuthentication/" + this.username).then(response => {
                     if(response.data.authenticated) {
@@ -99,9 +104,17 @@
                         this.$router.push("/login");
                     }
                 }).catch(error => console.log(error));
+            },
+            checkStatus() {
+                axios.get(process.env.VUE_APP_BASE_URL + process.env.VUE_APP_SERVER_PORT + "/checkStatus").then(response => console.log(response.data)).catch(error => console.log(error));
+            },
+            logout() {
+                this.$store.dispatch("logout");
+                this.$router.push("/login");
             }
         },
         created() {
+            this.isLoggedIn();
             this.getAuthentication();
         }
     }

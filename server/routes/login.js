@@ -82,7 +82,17 @@ module.exports = function(app, jwt, bcryptjs, speakeasy, models) {
 			response.status(200).json({authentication: false, valid: false, allowed: false});
 			response.end();
 		}
-    });
+	});
+	app.get("/checkStatus", (request, response) => {
+		try {
+			const token = request.headers.authorization.split(" ")[1];
+			const decoded = jwt.verify(token, "newSecretKey");
+			request.userData = decoded;
+			response.status(200).json({loggedIn: true});
+		} catch (error) {
+			response.status(401).json({loggedIn: false});
+		}
+	});
     
     function validUsername(username) {
 		var usernameFormat = /^[a-z0-9_.-]*$/;
