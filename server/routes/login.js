@@ -1,5 +1,23 @@
-module.exports = function(app, bcryptjs, speakeasy, models) {
-    const User = models.User;
+module.exports = function(app, jwt, bcryptjs, speakeasy, models) {
+	const User = models.User;
+	app.post("/checkUsername", (request, response) => {
+		var username = request.body.username;
+		if(username) {
+			var query = {username: username};
+			User.findOne(query).then(user => {
+				if(!isEmpty(user)) {
+					response.status(200).json({exists: true});
+					response.end();
+				} else {
+					response.status(200).json({exists: false, empty: false});
+					response.end();
+				}
+			}).catch(error => console.log(error));
+		} else {
+			response.status(200).json({exists: false, empty: true});
+			response.end();
+		}
+	});
     app.post("/login", (request, response) => {
 		var errorFields = [];
 		var username = request.body.username;
@@ -16,7 +34,9 @@ module.exports = function(app, bcryptjs, speakeasy, models) {
 									token: request.headers["x-otp"]
 								});
 								if(verified) {
-									response.status(200).json({authentication: true, valid: true});
+									const token = jwt.sign({userId: user._id, username: user.username}, "newSecretKey", {expiresIn: "2h"});
+									user.password = null;
+									response.status(200).json({authentication: true, valid: true, token: token, user: user});
 									response.end();
 								} else {
 									response.status(200).json({authentication: true, valid: false, otpToken: false});
@@ -31,7 +51,9 @@ module.exports = function(app, bcryptjs, speakeasy, models) {
 							if(password && validPassword(password)) {
 								bcryptjs.compare(password, user.password, function(error, foundPassword) {
 									if(foundPassword) {
-										response.status(200).json({authentication: false, valid: true});
+										const token = jwt.sign({userId: user._id, username: user.username}, "newSecretKey", {expiresIn: "2h"});
+										user.password = null;
+										response.status(200).json({authentication: false, valid: true, token: token, user: user});
 										response.end();
 									} else {
 										response.status(200).json({authentication: false, valid: false, allowed: true});

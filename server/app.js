@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const cors = require("cors");
+const jwt = require("jsonwebtoken");
 const bcryptjs = require("bcryptjs");
 const speakeasy = require("speakeasy");
 const qrCode = require("qrcode");
@@ -14,7 +15,7 @@ app.use(cors({origin: "*"}));
 app.use(express.json());
 
 const registration = require("./routes/registration.js")(app, bcryptjs, models);
-const login = require("./routes/login.js")(app, bcryptjs, speakeasy, models);
+const login = require("./routes/login.js")(app, jwt, bcryptjs, speakeasy, models);
 const setup = require("./routes/setup.js")(app, speakeasy, qrCode, models);
 
 mongoose.connect(databaseUrl, {useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false});

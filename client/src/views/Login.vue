@@ -5,8 +5,8 @@
                 <i class="fas fa-lock fa-7x"></i>
             </div>
             <div class="form-group">
-                <input type="text" id="username" class="form-control" :class="{'errorField' : usernameError && submitting}" placeholder="Username" v-model="user.username" @keyup="checkUsername()" @change="checkUsername()" @input="checkUsername()"/>
-                <small v-if="usernameError && submitting" class="form-text errorInput">Please provide a valid username!</small>
+                <input type="text" id="username" class="form-control" :class="{'errorField' : usernameError}" placeholder="Username" v-model="user.username" @keyup="checkUsername()" @change="checkUsername()" @input="checkUsername()"/>
+                <small v-if="usernameError" class="form-text errorInput">Please provide a valid username!</small>
             </div>
             <div class="form-group">
                 <div class="input-group">
@@ -58,7 +58,7 @@
 				this.$router.push("/registration");
 			},
 			checkUsername() {
-				/*var body = {username: this.user.username};
+				var body = {username: this.user.username};
 				axios.post(process.env.VUE_APP_BASE_URL + process.env.VUE_APP_SERVER_PORT + "/checkUsername", body).then(response => {
 					if(response.data.exists) {
 						this.usernameError = false;
@@ -69,7 +69,7 @@
 							this.usernameError = true;
 						}
 					}
-				}).catch(error => console.log(error));*/
+				}).catch(error => console.log(error));
 			},
 			loginUser() {
 				this.submitting = true;
@@ -90,18 +90,15 @@
 				}
 				var body = {username: this.user.username, password: this.user.password};
 				axios.post(process.env.VUE_APP_BASE_URL + process.env.VUE_APP_SERVER_PORT + "/login", body).then(response => {
-					if(response.data.authentication) {
-						if(response.data.valid) {
-							this.$router.push("/home");
-						} else {
-							if(response.data.otpToken) {
-								const username = response.data.username;
-								this.$store.dispatch("authenticate", {username});
-								this.$router.push("/authentication");
-							}
-						}
+					if(response.data.authentication && !response.data.valid && response.data.otpToken) {
+						const username = response.data.username;
+						this.$store.dispatch("authenticate", {username});
+						this.$router.push("/authentication");
 					} else {
 						if(response.data.valid) {
+							const token = response.data.token;
+							const user = response.data.user;
+							this.$store.dispatch("login", {token, user});
 							this.$router.push("/home");
 						} else {
 							if(response.data.allowed) {
