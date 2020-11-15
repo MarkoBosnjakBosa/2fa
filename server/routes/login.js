@@ -1,0 +1,84 @@
+module.exports = function(app, bcryptjs, speakeasy, models) {
+    const User = models.User;
+    app.post("/login", (request, response) => {
+		var errorFields = [];
+		var username = request.body.username;
+		if(username && validUsername(username)) {
+			var query = {username: username};
+			User.findOne(query).then(user => {
+				if(!isEmpty(user)) {
+					if(user.accepted) {
+						if(user.authentication.secret) {
+							if(request.headers["x-otp"]) { 
+								var verified = speakeasy.totp.verify({
+									secret: user.authentication.secret,
+									encoding: "base32",
+									token: request.headers["x-otp"]
+								});
+								if(verified) {
+									response.status(200).json({authentication: true, valid: true});
+									response.end();
+								} else {
+									response.status(200).json({authentication: true, valid: false, otpToken: false});
+									response.end();
+								}
+							} else {
+								response.status(200).json({authentication: true, valid: false, otpToken: true});
+								response.end();
+							}
+						} else {
+							var password = request.body.password;
+							if(password && validPassword(password)) {
+								bcryptjs.compare(password, user.password, function(error, foundPassword) {
+									if(foundPassword) {
+										response.status(200).json({authentication: false, valid: true});
+										response.end();
+									} else {
+										response.status(200).json({authentication: false, valid: false, allowed: true});
+										response.end();
+									}
+								});
+							} else {
+								errorFields.push("password");
+								response.status(200).json({authentication: false, valid: false, allowed: false});
+								response.end();
+							}
+						}
+					} else {
+						errorFields.push("username");
+						response.status(200).json({authentication: false, valid: false, allowed: false});
+						response.end();
+					}
+				} else {
+					errorFields.push("username");
+					response.status(200).json({authentication: false, valid: false, allowed: false});
+					response.end();
+				}
+			}).catch(error => console.log(error));
+		} else {
+			errorFields.push("username");
+			response.status(200).json({authentication: false, valid: false, allowed: false});
+			response.end();
+		}
+    });
+    
+    function validUsername(username) {
+		var usernameFormat = /^[a-z0-9_.-]*$/;
+		if(usernameFormat.test(username)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+ 	function validPassword(password) {
+		var passwordFormat = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
+		if(passwordFormat.test(password)) {
+			return true;
+		} else {
+			return false;
+		}
+ 	}
+ 	function isEmpty(object) {
+   		return !object || Object.keys(object).length === 0;
+ 	}
+}
