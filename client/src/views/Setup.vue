@@ -29,12 +29,11 @@
                     </div>
                     <button v-if="!authentication.secret" class="btn btn-primary" @click="enableAuthentication()">Enable</button>
                     <div v-if="authentication.tempSecret">
-                        <p>Scan the QR code or enter the secret in Google Authenticator</p>
-                        <img :src="authentication.dataURL" alt="..." class="img-thumbnail">
+                        <p>Scan the QR code and enter the secret key</p>
+                        <img :src="authentication.dataURL" alt="QR Code" class="img-thumbnail">
                         <form autocomplete="off" @submit.prevent="verifyAuthentication()">
                             <div class="form-group">
-                                <label for="otpToken">Otp token:</label>
-                                <input type="text" id="otpToken" class="form-control" v-model="otpToken"/>
+                                <input type="text" id="otpToken" class="form-control" placeholder="Otp token" v-model="otpToken"/>
                             </div>
                             <div class="form-group">
                                 <button type="submit" class="btn btn-primary">Confirm</button>
@@ -104,6 +103,12 @@
                         this.$router.push("/login");
                     }
                 }).catch(error => console.log(error));
+            },
+            openHome() {
+                this.$router.push("/home");
+            },
+            openProfile() {
+                this.$router.push("/profile");
             },
             checkStatus() {
                 axios.get(process.env.VUE_APP_BASE_URL + process.env.VUE_APP_SERVER_PORT + "/checkStatus").then(response => console.log(response.data)).catch(error => console.log(error));
