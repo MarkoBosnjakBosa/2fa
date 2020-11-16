@@ -1,6 +1,7 @@
 import {createRouter, createWebHistory} from "vue-router";
 import Registration from "../views/Registration.vue";
 import Login from "../views/Login.vue";
+import ForgotCredentials from "../views/ForgotCredentials.vue";
 import Setup from "../views/Setup.vue";
 import Authentication from "../views/Authentication.vue";
 import Home from "../views/Home.vue";
@@ -15,6 +16,11 @@ const routes = [
 		path: "/login",
 		name: "Login",
 		component: Login
+	},
+	{
+		path: "/forgot/credentials",
+		name: "ForgotCredentials",
+		component: ForgotCredentials
 	},
 	{
 		path: "/setup",

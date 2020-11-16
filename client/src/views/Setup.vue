@@ -56,8 +56,8 @@
     
     export default {
 		name: "setup",
-		data: function(){
-            return {
+		data() {
+			return {
                 username: "",
                 authentication: {
                     secret: "",
