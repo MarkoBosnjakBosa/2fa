@@ -42,13 +42,14 @@ module.exports = function(app, bcryptjs, models, transporter, emailUser, baseUrl
 					response.end();
 				} else {
 					var accepted = false;
+					var acceptanceToken = Math.floor((Math.random() * 100) + 54);
 					var authentication = {};
-					var newUser = getUserScheme(User, username, email, password, firstName, lastName, accepted, authentication);
+					var newUser = getUserScheme(User, username, email, password, firstName, lastName, accepted, acceptanceToken, authentication);
 					bcryptjs.genSalt(10, (error, salt) => {
 						bcryptjs.hash(newUser.password, salt, (error, hash) => {
 							newUser.password = hash;
 							newUser.save().then(user => {
-								sendConfirmationEmail(user.username, user.email, user.firstName);
+								sendConfirmationEmail(user.username, user.email, user.firstName, user.acceptanceToken);
 								response.status(200).json({created: true});
 								response.end();
 							}).catch(error => console.log(error));
@@ -61,11 +62,24 @@ module.exports = function(app, bcryptjs, models, transporter, emailUser, baseUrl
 			response.end();
 		}
 	});
+	app.get("/confirm/registration", (request, response) => {
+		var username = request.query.username;
+		var acceptanceToken = request.query.acceptanceToken;
+		var query = {$and: [{username: username}, {acceptanceToken: acceptanceToken}]}; 
+		var update = {accepted: true};
+		User.findOneAndUpdate(query, update, {new: true}).then(user => {
+			if(!isEmpty(user)) {
+				response.render("registration.html", {confirmed: true, loginUrl: loginUrl});
+			} else {
+				response.render("registration.html", {confirmed: false, adminEmail: emailUser});
+			}
+		}).catch(error => console.log(error));
+	});
 
-	function getUserScheme(User, username, email, password, firstName, lastName, accepted, authentication) {
-		return new User({username: username, email: email, password: password, firstName: firstName, lastName: lastName, accepted: accepted, authentication: authentication});
+	function getUserScheme(User, username, email, password, firstName, lastName, accepted, acceptanceToken, authentication) {
+		return new User({username: username, email: email, password: password, firstName: firstName, lastName: lastName, accepted: accepted, acceptanceToken: acceptanceToken, authentication: authentication});
 	}
-	function sendConfirmationEmail(username, email, firstName) {
+	function sendConfirmationEmail(username, email, firstName, acceptanceToken) {
 		var mailOptions = {
 			from: emailUser,
 			to: email,
@@ -74,7 +88,7 @@ module.exports = function(app, bcryptjs, models, transporter, emailUser, baseUrl
 				"<body>" +
 				"<p>Dear <b>" + firstName + "</b>,</p>" +
 				"<p>thank you for using EasyChat. Click on the button below to proceed with your registration:" +
-				"<p style='margin-bottom: 30px;'><a href='" + baseUrl + port + "/confirm/registration/" + username + "' target='_blank' style=' background-color: #1a1aff; border: none; color: #fff; padding: 10px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px; cursor: pointer; border-radius:5px;'>Confirm registration</a></p>" +
+				"<p style='margin-bottom: 30px;'><a href='" + baseUrl + port + "/confirm/registration/?username=" + username + "&acceptanceToken=" + acceptanceToken + "' target='_blank' style=' background-color: #1a1aff; border: none; color: #fff; padding: 10px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px; cursor: pointer; border-radius:5px;'>Confirm registration</a></p>" +
 				"<p>Kind regards,<br/> your Admin Team</p>" +
 				"</body>" +
 				"</html>"

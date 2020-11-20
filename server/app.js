@@ -19,9 +19,13 @@ const resetPasswordUrl = process.env.RESET_PASSWORD_URL;
 const transporter = getTransporter();
 app.use(cors({origin: "*"}));
 app.use(express.json());
+app.set("views", __dirname + "/views");
+app.engine("html", require("ejs").renderFile);
+app.set("view engine", "html");
 
 const registration = require("./routes/registration.js")(app, bcryptjs, models, transporter, emailUser, baseUrl, port, loginUrl);
 const login = require("./routes/login.js")(app, jwt, bcryptjs, speakeasy, models);
+const forgotCredentials = require("./routes/forgotCredentials.js")(app, bcryptjs, models, transporter, emailUser, baseUrl, port, resetPasswordUrl);
 const setup = require("./routes/setup.js")(app, speakeasy, qrCode, models);
 
 mongoose.connect(databaseUrl, {useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false});

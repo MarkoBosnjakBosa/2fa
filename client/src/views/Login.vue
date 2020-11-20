@@ -17,10 +17,10 @@
                 </div>
                 <small v-if="passwordError && submitting" class="form-text errorInput">Please provide a valid password!</small>
             </div>
+			<div v-if="noPasswordMatch" class="form-group loginFailed">Password does not match!</div>
             <div class="form-group forgotCredentials">
                 <a href="#" @click="forgotCredentials()">Forgot credentials?</a>
             </div>
-            <div v-if="noPasswordMatch" class="form-group loginFailed">Password does not match!</div>
             <div class="form-group submitDiv">
                 <button type="submit" class="btn btn-primary submitButton">Log in</button>
             </div>

@@ -6,6 +6,7 @@ module.exports = function(mongoose) {
 		firstName: String,
 		lastName: String,
 		accepted: Boolean,
+		acceptanceToken: String,
 		authentication: Object
 	}, {minimize: false});
 	const models = {

@@ -9,15 +9,15 @@
                     <legend class="col-form-label col-sm-2 pt-0">Forgot:</legend>
                     <div class="col-sm-10">
                         <div class="form-check">
-                            <input type="radio" name="option" id="password" class="form-check-input" value="password" checked/>
+                            <input type="radio" name="option" id="password" class="form-check-input" value="password" v-model="option" checked/>
                             <label for="gridRadios1" class="form-check-label">Password</label>
                         </div>
                         <div class="form-check">
-                            <input type="radio" name="option" id="username" class="form-check-input" value="username"/>
+                            <input type="radio" name="option" id="username" class="form-check-input" value="username" v-model="option"/>
                             <label for="gridRadios2" class="form-check-label">Username</label>
                         </div>
                         <div class="form-check">
-                            <input type="radio" name="option" id="confirmation" class="form-check-input" value="confirmation"/>
+                            <input type="radio" name="option" id="confirmation" class="form-check-input" value="confirmation" v-model="option"/>
                             <label for="confirmation" class="form-check-label">Confirmation email</label>
                         </div>
                     </div>
@@ -27,6 +27,7 @@
                 <input type="text" id="email" class="form-control" placeholder="Email" v-model="email" ref="first" @focus="clearEmailStatus()" @keypress="clearEmailStatus()"/>
                 <small v-if="emailError" class="form-text errorInput">Please provide a valid email!</small>
             </div>
+            <div v-if="emailSent" class="form-group emailSentSuccessful">Please visit your inbox and follow suggested steps!</div>
             <div class="form-group submit">
                 <button type="submit" class="btn btn-primary">Submit</button>
             </div>
@@ -71,12 +72,12 @@
                     }
 				}).catch(error => console.log(error));
 			},
-			clearEmailStatus() { this.email = false; }
+			clearEmailStatus() { this.emailError = false; }
 		},
 		computed: {
 			invalidEmail() {
 				var emailFormat = /\S+@\S+\.\S+/;
-				if(this.user.email != "" && emailFormat.test(this.user.email)) {
+				if(this.email != "" && emailFormat.test(this.email)) {
 					return false;
 				} else {
 					return true;
@@ -99,6 +100,10 @@
     .email, .submit {
         text-align: center;
     }
+    .emailSentSuccessful {
+		color: #008000;
+		margin-bottom: 10px;
+	}
     .errorField {
 		border: 1px solid #ff0000;
 		box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.1), 0 0 6px #ff8080;
