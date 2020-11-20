@@ -241,16 +241,18 @@
     #personalInformation {
         margin: 0 auto;
         max-width: 650px;
-        text-align: center;
     }
     #resetPassword {
         margin: 0 auto;
         max-width: 650px;
-        text-align: center;
     }
     .profileIcon, .resetPasswordIcon {
         margin-top: 20px;
 		margin-bottom: 20px;
+        text-align: center;
+    }
+    .submitButton {
+        text-align: center;
     }
     .editSuccessful, .resetSuccessful {
         color: #008000;
