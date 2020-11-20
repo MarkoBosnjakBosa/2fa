@@ -69,7 +69,7 @@
 		methods: {
             isLoggedIn() {
                 if(!this.$store.getters.isLoggedIn) this.$router.push("/login");
-                this.username = this.$store.getters.getUser.username;
+                this.username = this.$store.getters.getUser;
                 this.checkStatus();
             },
             getAuthentication() {

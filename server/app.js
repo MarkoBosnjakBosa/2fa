@@ -27,6 +27,7 @@ const registration = require("./routes/registration.js")(app, bcryptjs, models, 
 const login = require("./routes/login.js")(app, jwt, bcryptjs, speakeasy, models);
 const forgotCredentials = require("./routes/forgotCredentials.js")(app, bcryptjs, models, transporter, emailUser, baseUrl, port, resetPasswordUrl);
 const setup = require("./routes/setup.js")(app, speakeasy, qrCode, models);
+const profile = require("./routes/profile.js")(app, models);
 
 mongoose.connect(databaseUrl, {useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false});
 const database = mongoose.connection;

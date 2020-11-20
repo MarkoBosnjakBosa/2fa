@@ -35,8 +35,7 @@ module.exports = function(app, jwt, bcryptjs, speakeasy, models) {
 								});
 								if(verified) {
 									const token = jwt.sign({userId: user._id, username: user.username}, "newSecretKey", {expiresIn: "2h"});
-									user.password = null;
-									response.status(200).json({authentication: true, valid: true, token: token, user: user});
+									response.status(200).json({authentication: true, valid: true, token: token, user: user.username});
 									response.end();
 								} else {
 									response.status(200).json({authentication: true, valid: false, otpToken: false});
@@ -52,8 +51,7 @@ module.exports = function(app, jwt, bcryptjs, speakeasy, models) {
 								bcryptjs.compare(password, user.password, function(error, foundPassword) {
 									if(foundPassword) {
 										const token = jwt.sign({userId: user._id, username: user.username}, "newSecretKey", {expiresIn: "2h"});
-										user.password = null;
-										response.status(200).json({authentication: false, valid: true, token: token, user: user});
+										response.status(200).json({authentication: false, valid: true, token: token, user: user.username});
 										response.end();
 									} else {
 										response.status(200).json({authentication: false, valid: false, allowed: true});

@@ -6,7 +6,7 @@ const getDefaultState = () => {
 	return {
 		jwtData: {
 			token: "",
-			user: {}
+			user: ""
 		},
 		authenticationData: {
 			username: ""

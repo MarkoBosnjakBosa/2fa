@@ -1,7 +1,9 @@
 <template>
 	<div id="resetPassword" class="container-fluid">
 		<form autocomplete="off" @submit.prevent="resetPassword()">
-			<h1>Reset password</h1>
+			<div class="resetPasswordIcon">
+				<i class="fas fa-key fa-7x"></i>
+			</div>
 			<div class="form-group">
 				<div class="input-group">
 					<input type="password" id="password" class="form-control" :class="{'errorField' : passwordError}" placeholder="Password" v-model="user.password" ref="first" @focus="clearPasswordStatus()" @keypress="clearPasswordStatus()"/>
@@ -26,6 +28,7 @@
 	import "bootstrap";
 	import "bootstrap/dist/css/bootstrap.min.css";
 	var axios = require("axios");
+
 	export default {
 		name: "resetPassword",
 		data() {
@@ -105,10 +108,10 @@
 		max-width: 400px;
 		text-align: center;
 	}
-	h1 {
-		margin-top: 20px;
+	.resetPasswordIcon {
+        margin-top: 20px;
 		margin-bottom: 20px;
-	}
+    }
 	.passwordResetSuccessful {
 		color: #008000;
 		margin-bottom: 10px;
