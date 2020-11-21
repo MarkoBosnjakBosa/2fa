@@ -83,7 +83,7 @@ module.exports = function(app, bcryptjs, models, transporter, emailUser, baseUrl
 		};
 		transporter.sendMail(mailOptions).then().catch(error => console.log(error));
 	}
-    function sendConfirmationEmail(email, firstName, username, acceptanceToken) {
+	function sendConfirmationEmail(email, firstName, username, acceptanceToken) {
 		var mailOptions = {
 			from: emailUser,
 			to: email,
