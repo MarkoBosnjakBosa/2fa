@@ -31,6 +31,9 @@
             <div class="form-group submitDiv">
                 <button type="submit" class="btn btn-primary">Submit</button>
             </div>
+            <div class="form-group loginDiv">
+                <button type="button" class="btn btn-info" @click="login()">Proceed to login <i class="fas fa-hand-point-right"></i></button>
+            </div>
         </form>
     </div>
 </template>
@@ -70,6 +73,9 @@
                         this.emailSent = false;
                     }
 				}).catch(error => console.log(error));
+            },
+            login() {
+				this.$router.push("/login");
 			},
 			clearEmailStatus() { 
                 this.emailError = false;
@@ -99,7 +105,7 @@
 		margin-bottom: 20px;
         text-align: center;
     }
-    .emailDiv, .submitDiv {
+    .emailDiv, .submitDiv, .loginDiv {
         text-align: center;
     }
     .emailSentSuccessful {
