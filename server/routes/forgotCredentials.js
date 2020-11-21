@@ -26,7 +26,7 @@ module.exports = function(app, bcryptjs, models, transporter, emailUser, baseUrl
 			response.end();
 		}
 	});
-    app.put("/resetPassword", (request, response) => {
+	app.put("/resetPassword", (request, response) => {
 		var username = request.body.username;
 		var acceptanceToken = request.body.acceptanceToken;
 		var password = request.body.password;
