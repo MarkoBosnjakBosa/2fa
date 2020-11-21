@@ -11,6 +11,9 @@
             <div class="form-group">
                 <button type="submit" class="btn btn-primary">Submit</button>
             </div>
+            <div class="form-group">
+                <a :href="'mailto:' + adminEmail" class="btn btn-info" role="button">Contact the Admin team <i class="fas fa-envelope"></i></a>
+            </div>
         </form>
     </div>
 </template>
@@ -24,7 +27,8 @@
 		name: "authentication",
 		data() {
 			return {
-				otpTokenError: false,
+                adminEmail: process.env.VUE_APP_ADMIN_EMAIL,
+                otpTokenError: false,
                 otpToken: ""
 			}
 		},
