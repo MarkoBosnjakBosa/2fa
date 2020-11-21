@@ -27,6 +27,7 @@ export default new Vuex.Store({
 		SET_TOKEN: (state, token) => { state.jwtData.token = token; },
 		SET_USER: (state, user) => { state.jwtData.user = user; },
 		SET_USERNAME: (state, username) => { state.authenticationData.username = username },
+		CLEAR_USERNAME: state => { state.authenticationData.username = "" },
 		RESET: state => { Object.assign(state, getDefaultState()); }
 	},
 	actions: {
@@ -37,6 +38,9 @@ export default new Vuex.Store({
 		},
 		authenticate: ({commit}, {username}) => {
 			commit("SET_USERNAME", username);
+		},
+		clearAuthentication: ({commit}) => {
+			commit("CLEAR_USERNAME");
 		},
 		logout: ({commit}) => {
 			commit("RESET", "");

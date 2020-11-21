@@ -43,6 +43,7 @@
                         const token = response.data.token;
                         const user = response.data.user;
                         this.$store.dispatch("login", {token, user});
+                        this.$store.dispatch("clearAuthentication");
                         this.$router.push("/home");
 					} else {
                         this.otpTokenError = true;
