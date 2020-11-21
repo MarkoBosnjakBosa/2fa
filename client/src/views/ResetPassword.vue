@@ -18,7 +18,7 @@
 				<button type="submit" class="btn btn-primary">Submit</button>
 			</div>
 			<div class="form-group">
-				<button class="btn btn-info" @click.prevent="login()">Proceed to login <i class="fas fa-hand-point-right"></i></button>
+				<button type="button" class="btn btn-info" @click.prevent="login()">Proceed to login <i class="fas fa-hand-point-right"></i></button>
 			</div>
 		</form>
 	</div>
