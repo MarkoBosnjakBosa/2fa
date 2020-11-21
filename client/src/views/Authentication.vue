@@ -19,9 +19,9 @@
 </template>
 
 <script>
-	import "bootstrap";
-	import "bootstrap/dist/css/bootstrap.min.css";
-	var axios = require("axios");
+    import "bootstrap";
+    import "bootstrap/dist/css/bootstrap.min.css";
+    var axios = require("axios");
 	
     export default {
         name: "authentication",
