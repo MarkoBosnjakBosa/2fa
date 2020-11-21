@@ -29,17 +29,17 @@
 
 <script>
     import "bootstrap";
-	import "bootstrap/dist/css/bootstrap.min.css";
+    import "bootstrap/dist/css/bootstrap.min.css";
     var axios = require("axios");
-    
+
     export default {
-		name: "home",
-		data() {
-			return {
+        name: "home",
+        data() {
+            return {
                 username: ""
             }
         },
-		methods: {
+        methods: {
             isLoggedIn() {
                 if(!this.$store.getters.isLoggedIn) this.$router.push("/login");
                 this.username = this.$store.getters.getUser;
