@@ -1,26 +1,26 @@
 {
-  "name": "2fa",
-  "version": "1.0.0",
-  "description": "2fa - two-factor authentication",
-  "main": "app.js",
-  "scripts": {
-    "watch": "nodemon ./app.js"
-  },
-  "author": "Marko Bosnjak",
-  "license": "ISC",
-  "devDependencies": {
-    "nodemon": "^2.0.6"
-  },
-  "dependencies": {
-    "bcryptjs": "^2.4.3",
-    "cors": "^2.8.5",
-    "dotenv": "^8.2.0",
-    "ejs": "^3.1.5",
-    "express": "^4.17.1",
-    "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.10.14",
-    "nodemailer": "^6.4.16",
-    "qrcode": "^1.4.4",
-    "speakeasy": "^2.0.0"
-  }
+	"name": "2fa",
+	"version": "1.0.0",
+	"description": "2fa - Two-factor authentication application",
+	"main": "app.js",
+	"scripts": {
+		"watch": "nodemon ./app.js"
+	},
+	"author": "Marko Bosnjak",
+	"license": "ISC",
+	"devDependencies": {
+		"nodemon": "^2.0.6"
+	},
+	"dependencies": {
+		"bcryptjs": "^2.4.3",
+		"cors": "^2.8.5",
+		"dotenv": "^8.2.0",
+		"ejs": "^3.1.5",
+		"express": "^4.17.1",
+		"jsonwebtoken": "^8.5.1",
+		"mongoose": "^5.10.14",
+		"nodemailer": "^6.4.16",
+		"qrcode": "^1.4.4",
+		"speakeasy": "^2.0.0"
+	}
 }
