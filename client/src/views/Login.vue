@@ -51,12 +51,6 @@
 			}
 		},
 		methods: {
-			forgotCredentials() {
-				this.$router.push("/forgot/credentials");
-			},
-			register() {
-				this.$router.push("/registration");
-			},
 			checkUsername() {
 				var body = {username: this.user.username};
 				axios.post(process.env.VUE_APP_BASE_URL + process.env.VUE_APP_SERVER_PORT + "/checkUsername", body).then(response => {
@@ -112,6 +106,12 @@
 						}
 					}
 				}).catch(error => console.log(error));
+			},
+			forgotCredentials() {
+				this.$router.push("/forgot/credentials");
+			},
+			register() {
+				this.$router.push("/registration");
 			},
 			clearUsernameStatus() { this.usernameError = false; },
 			clearPasswordStatus() { this.passwordError = false; },

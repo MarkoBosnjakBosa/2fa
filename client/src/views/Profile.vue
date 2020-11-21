@@ -21,7 +21,7 @@
             </div>
         </nav>
         <div id="personalInformation">
-            <form autocomplete="off" @submit.prevent="editUser()" enctype="multipart/form-data">
+            <form autocomplete="off" @submit.prevent="editUser()">
                 <div class="profileIcon">
                     <i class="fas fa-edit fa-7x"></i>
                 </div>
