@@ -129,6 +129,9 @@
             },
             clearOtpTokenStatus() { this.otpTokenError = false; },
         },
+        computed: {
+			invalidOtpToken() { return this.otpToken === ""; }
+		},
         created() {
             this.isLoggedIn();
             this.getAuthentication();
