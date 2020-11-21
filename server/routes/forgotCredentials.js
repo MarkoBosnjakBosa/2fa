@@ -106,7 +106,7 @@ module.exports = function(app, bcryptjs, models, transporter, emailUser, baseUrl
 		} else {
 			return false;
 		}
-}	
+	}	
 	function isValidPassword(password) {
 		var passwordFormat = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
 		if(passwordFormat.test(password)) {
@@ -114,7 +114,7 @@ module.exports = function(app, bcryptjs, models, transporter, emailUser, baseUrl
 		} else {
 			return false;
 		}
-}	
+	}	
 	function isEmpty(object) {
 		return !object || Object.keys(object).length === 0;
 	}
