@@ -98,7 +98,7 @@ module.exports = function(app, bcryptjs, models, transporter, emailUser, baseUrl
 				"</html>"
 		};
 		transporter.sendMail(mailOptions).then().catch(error => console.log(error));
-    }
+	}
 	function isValidEmail(email) {
 		var emailFormat = /\S+@\S+\.\S+/;
 		if(emailFormat.test(email)) {
