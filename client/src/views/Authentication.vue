@@ -23,8 +23,8 @@
 	import "bootstrap/dist/css/bootstrap.min.css";
 	var axios = require("axios");
 	
-	export default {
-		name: "authentication",
+    export default {
+        name: "authentication",
         data() {
             return {
                 adminEmail: process.env.VUE_APP_ADMIN_EMAIL,
@@ -32,7 +32,7 @@
                 otpToken: ""
             }
         },
-		methods: {
+        methods: {
             loginUser() {
                 this.clearOtpTokenStatus();
                 if(this.invalidOtpToken) {
@@ -55,11 +55,11 @@
                 }).catch(error => console.log(error));
             },
             clearOtpTokenStatus() { this.otpTokenError = false; }
-		},
-		computed: {
-			invalidOtpToken() { return this.otpToken === ""; }
-		}
-	}
+        },
+        computed: {
+            invalidOtpToken() { return this.otpToken === ""; }
+        }
+    }
 </script>
 
 <style scoped>
