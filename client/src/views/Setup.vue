@@ -29,11 +29,12 @@
                     </div>
                     <button v-if="!authentication.secret" class="btn btn-primary" @click="enableAuthentication()">Enable</button>
                     <div v-if="authentication.tempSecret">
-                        <p>Scan the QR code and enter the secret key</p>
+                        <div class="scanDiv">Scan the QR code and enter the secret key:</div>
                         <img :src="authentication.dataURL" alt="QR Code" class="img-thumbnail">
                         <form autocomplete="off" @submit.prevent="verifyAuthentication()">
                             <div class="form-group">
-                                <input type="text" id="otpToken" class="form-control" placeholder="Otp token" v-model="otpToken"/>
+                                <input type="text" id="otpToken" class="form-control" :class="{'errorField' : otpTokenError}" placeholder="Otp token" v-model="otpToken" @focus="clearOtpTokenStatus()" @keypress="clearOtpTokenStatus()"/>
+                                <small v-if="otpTokenError" class="form-text errorInput">Please provide a valid otp token!</small>
                             </div>
                             <div class="form-group">
                                 <button type="submit" class="btn btn-primary">Confirm</button>
@@ -63,6 +64,7 @@
                     secret: "",
                     tempSecret: ""
                 },
+                otpTokenError: false,
                 otpToken: ""
             }
         },
@@ -88,11 +90,19 @@
                 }).catch(error => console.log(error));
             },
             verifyAuthentication() {
+                this.clearOtpTokenStatus();
+                if(this.invalidOtpToken) {
+                    this.otpTokenError = true;
+                    return;
+                }
                 var body = {otpToken: this.otpToken, username: this.username};
                 axios.put(process.env.VUE_APP_BASE_URL + process.env.VUE_APP_SERVER_PORT + "/verifyAuthentication", body).then(response => {
                     if(response.data.verified) {
                         this.authentication.secret = this.authentication.tempSecret;
                         this.authentication.tempSecret = "";
+                        this.otpTokenError = false;
+                    } else {
+                        this.otpTokenError = true;
                     }
                 }).catch(error => console.log(error));
             },
@@ -116,7 +126,8 @@
             logout() {
                 this.$store.dispatch("logout");
                 this.$router.push("/login");
-            }
+            },
+            clearOtpTokenStatus() { this.otpTokenError = false; },
         },
         created() {
             this.isLoggedIn();
@@ -130,8 +141,26 @@
         margin: 0 auto;
         max-width: 500px;
     }
+    h1 {
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+    .scanDiv {
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+    form {
+        margin-top: 10px;
+    }
     .authenticationSuccessful {
         color: #008000;
 		margin-bottom: 10px;
     }
+    .errorField {
+		border: 1px solid #ff0000;
+		box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.1), 0 0 6px #ff8080;
+	}
+	.errorInput {
+		color: #ff0000;
+	}
 </style>

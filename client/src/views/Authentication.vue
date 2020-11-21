@@ -5,7 +5,7 @@
                 <i class="far fa-hand-paper fa-7x"></i>
             </div>
             <div class="form-group">
-                <input type="text" id="otpToken" class="form-control" placeholder="Otp token" v-model="otpToken" @focus="clearOtpTokenStatus()" @keypress="clearOtpTokenStatus()"/>
+                <input type="text" id="otpToken" class="form-control" :class="{'errorField' : otpTokenError}" placeholder="Otp token" v-model="otpToken" @focus="clearOtpTokenStatus()" @keypress="clearOtpTokenStatus()"/>
                 <small v-if="otpTokenError" class="form-text errorInput">Please provide a valid otp token!</small>
             </div>
             <div class="form-group">
