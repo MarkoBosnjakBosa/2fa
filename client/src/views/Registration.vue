@@ -35,11 +35,11 @@
             </div>
             <div v-if="alreadyExists == 'username'" class="form-group creationFailed">Username already exists!</div>
             <div v-if="alreadyExists == 'email'" class="from-group creationFailed">Email already exists!</div>
-            <div class="form-group">
+            <div class="form-group buttonsDiv">
                 <button type="submit" class="btn btn-primary">Submit</button>
                 <button type="button" class="btn btn-danger resetForm" @click="resetForm()">Reset</button>
             </div>
-            <div class="form-group">
+            <div class="form-group loginDiv">
                 <button type="button" class="btn btn-info" @click="login()">Proceed to login <i class="fas fa-hand-point-right"></i></button>
             </div>
         </form>
@@ -205,6 +205,9 @@
     }
 	.resetForm {
 		margin-left: 10px;
+	}
+	.buttonsDiv, .loginDiv {
+		text-align: center;
 	}
 	.creationSuccessful {
 		color: #008000;
