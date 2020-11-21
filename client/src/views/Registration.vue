@@ -1,56 +1,56 @@
 <template>
 	<div id="registration" class="container-fluid">
-        <form autocomplete="off" @submit.prevent="createUser()">
-            <div class="registrationIcon">
-                <i class="fas fa-pencil-alt fa-7x"></i>
-            </div>
-            <div class="form-group">
-                <input type="text" id="username" class="form-control" :class="{'errorField' : usernameError && submitting}" placeholder="Username" v-model="user.username" ref="first" @focus="clearUsernameStatus()" @keypress="clearUsernameStatus()"/>
-                <small v-if="usernameError && submitting" class="form-text errorInput">Please provide a valid username!</small>
-            </div>
-            <div class="form-group">
-                <input type="text" id="email" class="form-control" :class="{'errorField' : emailError && submitting}" placeholder="Email" v-model="user.email" @focus="clearEmailStatus()" @keypress="clearEmailStatus()"/>
-                <small v-if="emailError && submitting" class="form-text errorInput">Please provide a valid email!</small>
-            </div>
-            <div class="form-group">
-                <div class="input-group">
-                    <input type="password" id="password" class="form-control" :class="{'errorField' : passwordError && submitting}" placeholder="Password" v-model="user.password" @focus="clearPasswordStatus()" @keypress="clearPasswordStatus()"/>
-                    <div class="input-group-append">
-                        <button type="button" class="btn btn-light" :class="{'errorIcon' : passwordError && submitting}" data-toggle="tooltip" title="Password has to have at least 8 characters, one upper and lower case, one digit and a special character." @click="togglePassword()"><i id="togglePassword" class="fa fa-eye"></i></button>
-                    </div>
-                </div>
-                <small v-if="passwordError && submitting" class="form-text errorInput">Please provide a valid password!</small>
-            </div>
-            <div class="form-group">
-                <input type="text" id="firstName" class="form-control" :class="{'errorField' : firstNameError && submitting}" placeholder="First name" v-model="user.firstName" @focus="clearFirstNameStatus()" @keypress="clearFirstNameStatus()"/>
-                <small v-if="firstNameError && submitting" class="form-text errorInput">Please provide a valid first name!</small>
-            </div>
-            <div class="form-group">
-                <input type="text" id="lastName" class="form-control" :class="{'errorField' : lastNameError && submitting}" placeholder="Last name" v-model="user.lastName" @focus="clearLastNameStatus()" @keypress="clearLastNameStatus()"/>
-                <small v-if="lastNameError && submitting" class="form-text errorInput">Please provide a valid last name!</small>
-            </div>
-            <div v-if="userCreated" class="form-group creationSuccessful">
-                <div>User has been successfully created!</div>
-                <div>Please visit your inbox and confirm your registration!</div>
-            </div>
-            <div v-if="alreadyExists == 'username'" class="form-group creationFailed">Username already exists!</div>
-            <div v-if="alreadyExists == 'email'" class="from-group creationFailed">Email already exists!</div>
-            <div class="form-group buttonsDiv">
-                <button type="submit" class="btn btn-primary">Submit</button>
-                <button type="button" class="btn btn-danger resetForm" @click="resetForm()">Reset</button>
-            </div>
-            <div class="form-group loginDiv">
-                <button type="button" class="btn btn-info" @click="login()">Proceed to login <i class="fas fa-hand-point-right"></i></button>
-            </div>
-        </form>
-    </div>
+		<form autocomplete="off" @submit.prevent="createUser()">
+			<div class="registrationIcon">
+				<i class="fas fa-pencil-alt fa-7x"></i>
+			</div>
+			<div class="form-group">
+				<input type="text" id="username" class="form-control" :class="{'errorField' : usernameError && submitting}" placeholder="Username" v-model="user.username" ref="first" @focus="clearUsernameStatus()" @keypress="clearUsernameStatus()"/>
+				<small v-if="usernameError && submitting" class="form-text errorInput">Please provide a valid username!</small>
+			</div>
+			<div class="form-group">
+				<input type="text" id="email" class="form-control" :class="{'errorField' : emailError && submitting}" placeholder="Email" v-model="user.email" @focus="clearEmailStatus()" @keypress="clearEmailStatus()"/>
+				<small v-if="emailError && submitting" class="form-text errorInput">Please provide a valid email!</small>
+			</div>
+			<div class="form-group">
+				<div class="input-group">
+					<input type="password" id="password" class="form-control" :class="{'errorField' : passwordError && submitting}" placeholder="Password" v-model="user.password" @focus="clearPasswordStatus()" @keypress="clearPasswordStatus()"/>
+					<div class="input-group-append">
+						<button type="button" class="btn btn-light" :class="{'errorIcon' : passwordError && submitting}" data-toggle="tooltip" title="Password has to have at least 8 characters, one upper and lower case, one digit and a special character." @click="togglePassword()"><i id="togglePassword" class="fa fa-eye"></i></button>
+					</div>
+				</div>
+				<small v-if="passwordError && submitting" class="form-text errorInput">Please provide a valid password!</small>
+			</div>
+			<div class="form-group">
+				<input type="text" id="firstName" class="form-control" :class="{'errorField' : firstNameError && submitting}" placeholder="First name" v-model="user.firstName" @focus="clearFirstNameStatus()" @keypress="clearFirstNameStatus()"/>
+				<small v-if="firstNameError && submitting" class="form-text errorInput">Please provide a valid first name!</small>
+			</div>
+			<div class="form-group">
+				<input type="text" id="lastName" class="form-control" :class="{'errorField' : lastNameError && submitting}" placeholder="Last name" v-model="user.lastName" @focus="clearLastNameStatus()" @keypress="clearLastNameStatus()"/>
+				<small v-if="lastNameError && submitting" class="form-text errorInput">Please provide a valid last name!</small>
+			</div>
+			<div v-if="userCreated" class="form-group creationSuccessful">
+				<div>User has been successfully created!</div>
+				<div>Please visit your inbox and confirm your registration!</div>
+			</div>
+			<div v-if="alreadyExists == 'username'" class="form-group creationFailed">Username already exists!</div>
+			<div v-if="alreadyExists == 'email'" class="from-group creationFailed">Email already exists!</div>
+			<div class="form-group buttonsDiv">
+				<button type="submit" class="btn btn-primary">Submit</button>
+				<button type="button" class="btn btn-danger resetForm" @click="resetForm()">Reset</button>
+			</div>
+			<div class="form-group loginDiv">
+				<button type="button" class="btn btn-info" @click="login()">Proceed to login <i class="fas fa-hand-point-right"></i></button>
+			</div>
+		</form>
+	</div>
 </template>
 
 <script>
 	import "bootstrap";
 	import "bootstrap/dist/css/bootstrap.min.css";
-    var axios = require("axios");
-    
+	var axios = require("axios");
+
 	export default {
 		name: "registration",
 		data() {
@@ -104,9 +104,9 @@
 				if(!allowSubmit) {
 					this.alreadyExists = "";
 					this.userCreated = false;
-					return;
+				return;
 				}
-                var body = {username: this.user.username, email: this.user.email, password: this.user.password, firstName: this.user.firstName, lastName: this.user.lastName};
+				var body = {username: this.user.username, email: this.user.email, password: this.user.password, firstName: this.user.firstName, lastName: this.user.lastName};
 				axios.post(process.env.VUE_APP_BASE_URL + process.env.VUE_APP_SERVER_PORT + "/createUser", body).then(response => {
 					if(response.data.created) {
 						this.userCreated = true;
@@ -198,11 +198,11 @@
 		margin: 0 auto;
 		max-width: 500px;
 	}
-    .registrationIcon {
-        text-align: center;
-        margin-top: 20px;
+	.registrationIcon {
+		text-align: center;
+		margin-top: 20px;
 		margin-bottom: 20px;
-    }
+	}
 	.resetForm {
 		margin-left: 10px;
 	}
