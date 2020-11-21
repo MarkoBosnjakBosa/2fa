@@ -110,7 +110,7 @@
                 var body = {username: this.username};
                 axios.put(process.env.VUE_APP_BASE_URL + process.env.VUE_APP_SERVER_PORT + "/disableAuthentication", body).then(response => {
                     if(response.data.disabled) {
-                        this.$router.push("/login");
+                        this.logout();
                     }
                 }).catch(error => console.log(error));
             },

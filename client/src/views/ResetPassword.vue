@@ -18,7 +18,7 @@
 				<button type="submit" class="btn btn-primary">Submit</button>
 			</div>
 			<div class="form-group">
-				<a href="#" class="btn btn-info" role="button" @click.prevent="login()">Proceed to login <i class="fas fa-hand-point-right"></i></a>
+				<button class="btn btn-info" @click.prevent="login()">Proceed to login <i class="fas fa-hand-point-right"></i></button>
 			</div>
 		</form>
 	</div>
@@ -43,9 +43,6 @@
 			}
 		},
 		methods: {
-			login() {
-				this.$router.push("/login");
-			},
 			resetPassword() {
 				this.clearPasswordStatus();
 				if(this.invalidPassword) {
@@ -65,6 +62,9 @@
 						this.passwordReset = false;
 					}
 				}).catch(error => console.log(error));
+			},
+			login() {
+				this.$router.push("/login");
 			},
 			clearPasswordStatus() { this.passwordError = false; },
 			togglePassword() {

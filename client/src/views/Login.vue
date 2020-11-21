@@ -85,11 +85,15 @@
 				var body = {username: this.user.username, password: this.user.password};
 				axios.post(process.env.VUE_APP_BASE_URL + process.env.VUE_APP_SERVER_PORT + "/login", body).then(response => {
 					if(response.data.authentication && !response.data.valid && response.data.otpToken) {
+						this.user = {username: "", password: ""};
+						this.usernameError = false, this.passwordError = false, this.noPasswordMatch = false, this.submitting = false;
 						const username = response.data.username;
 						this.$store.dispatch("authenticate", {username});
 						this.$router.push("/authentication");
 					} else {
 						if(response.data.valid) {
+							this.user = {username: "", password: ""};
+							this.usernameError = false, this.passwordError = false, this.noPasswordMatch = false, this.submitting = false;
 							const token = response.data.token;
 							const user = response.data.user;
 							this.$store.dispatch("login", {token, user});

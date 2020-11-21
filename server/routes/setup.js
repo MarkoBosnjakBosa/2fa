@@ -21,12 +21,12 @@ module.exports = function(app, speakeasy, qrCode, models) {
     app.put("/enableAuthentication", (request, response) => {
         var username = request.body.username;
         const secret = speakeasy.generateSecret({length: 10});
-        qrCode.toDataURL(secret.otpauth_url, (error, data_url) => {
+        qrCode.toDataURL(secret.otpauth_url, (error, dataUrl) => {
             var query = {username: username};
-            var update = {authentication: {secret: "", tempSecret: secret.base32, dataURL: data_url, otpURL: secret.otpauth_url}};
+            var update = {authentication: {secret: "", tempSecret: secret.base32, dataURL: dataUrl, otpURL: secret.otpauth_url}};
             User.findOneAndUpdate(query, update, {new: true}).then(user => {
                 if(!isEmpty(user)) {
-                    response.status(200).json({authenticated: true, authentication: {tempSecret: secret.base32, dataURL: data_url, otpURL: secret.otpauth_url}});
+                    response.status(200).json({authenticated: true, authentication: {tempSecret: secret.base32, dataURL: dataUrl, otpURL: secret.otpauth_url}});
                     response.end();
                 } else {
                     response.status(200).json({authenticated: false});
@@ -48,7 +48,7 @@ module.exports = function(app, speakeasy, qrCode, models) {
                 });
                 if(verified) {
                     var update = {$set: {"authentication.secret": user.authentication.tempSecret, "authentication.tempSecret": ""}};
-                    User.findOneAndUpdate(query, update, {new: true}).then(updatedUser => {
+                    User.findOneAndUpdate(query, update, {new: true}).then(verifiedUser => {
                         response.status(200).json({verified: true});
                         response.end();
                     }).catch(error => console.log(error));
