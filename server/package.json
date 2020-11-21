@@ -6,7 +6,7 @@
 	"scripts": {
 		"watch": "nodemon ./app.js"
 	},
-	"author": "Marko Bosnjak",
+	"author": "Marko Bošnjak",
 	"license": "ISC",
 	"devDependencies": {
 		"nodemon": "^2.0.6"
