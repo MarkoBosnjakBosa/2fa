@@ -75,6 +75,6 @@ module.exports = function(app, speakeasy, qrCode, models) {
     })
 
     function isEmpty(object) {
-		return !object || Object.keys(object).length === 0;
-	}
+        return !object || Object.keys(object).length === 0;
+    }
 }
