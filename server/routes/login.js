@@ -92,7 +92,7 @@ module.exports = function(app, jwt, bcryptjs, speakeasy, models) {
 		}
 	});
     
-    function validUsername(username) {
+	function validUsername(username) {
 		var usernameFormat = /^[a-z0-9_.-]*$/;
 		if(usernameFormat.test(username)) {
 			return true;
@@ -109,6 +109,6 @@ module.exports = function(app, jwt, bcryptjs, speakeasy, models) {
 		}
  	}
  	function isEmpty(object) {
-   		return !object || Object.keys(object).length === 0;
+		return !object || Object.keys(object).length === 0;
  	}
 }
