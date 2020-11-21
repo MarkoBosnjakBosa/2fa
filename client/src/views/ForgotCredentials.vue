@@ -10,11 +10,11 @@
                     <div class="col-sm-10">
                         <div class="form-check">
                             <input type="radio" name="option" id="password" class="form-check-input" value="password" v-model="option" checked/>
-                            <label for="gridRadios1" class="form-check-label">Password</label>
+                            <label for="password" class="form-check-label">Password</label>
                         </div>
                         <div class="form-check">
                             <input type="radio" name="option" id="username" class="form-check-input" value="username" v-model="option"/>
-                            <label for="gridRadios2" class="form-check-label">Username</label>
+                            <label for="username" class="form-check-label">Username</label>
                         </div>
                         <div class="form-check">
                             <input type="radio" name="option" id="confirmation" class="form-check-input" value="confirmation" v-model="option"/>
@@ -23,12 +23,12 @@
                     </div>
                 </div>
             </fieldset>
-            <div class="form-group email">
-                <input type="text" id="email" class="form-control" placeholder="Email" v-model="email" ref="first" @focus="clearEmailStatus()" @keypress="clearEmailStatus()"/>
+            <div class="form-group emailDiv">
+                <input type="text" id="email" class="form-control" placeholder="Email" v-model="email" @focus="clearEmailStatus()" @keypress="clearEmailStatus()"/>
                 <small v-if="emailError" class="form-text errorInput">Please provide a valid email!</small>
             </div>
             <div v-if="emailSent" class="form-group emailSentSuccessful">Please visit your inbox and follow suggested steps!</div>
-            <div class="form-group submit">
+            <div class="form-group submitDiv">
                 <button type="submit" class="btn btn-primary">Submit</button>
             </div>
         </form>
@@ -62,7 +62,6 @@
 				axios.post(process.env.VUE_APP_BASE_URL + process.env.VUE_APP_SERVER_PORT + "/forgotCredentials", body).then(response => {
 					if(response.data.sent) {
                         this.emailSent = true;
-                        this.$refs.first.focus();
                         this.option = "password";
                         this.email = "";
                         this.emailError = false;
@@ -72,7 +71,10 @@
                     }
 				}).catch(error => console.log(error));
 			},
-			clearEmailStatus() { this.emailError = false; }
+			clearEmailStatus() { 
+                this.emailError = false;
+                this.emailSent = false; 
+            }
 		},
 		computed: {
 			invalidEmail() {
@@ -97,7 +99,7 @@
 		margin-bottom: 20px;
         text-align: center;
     }
-    .email, .submit {
+    .emailDiv, .submitDiv {
         text-align: center;
     }
     .emailSentSuccessful {

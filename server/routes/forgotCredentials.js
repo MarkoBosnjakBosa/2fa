@@ -5,26 +5,26 @@ module.exports = function(app, bcryptjs, models, transporter, emailUser, baseUrl
         var option = request.body.option;
         if(email && isValidEmail(email) && option) {
             var query = {email: email}; 
-                User.findOne(query).then(user => {
-                    if(!isEmpty(user)) {
-                        if(option == "password") {
-                            sendResetPasswordEmail(user.email, user.firstName, user.username, user.acceptanceToken);
-                        } else if(option == "username") {
-                            sendForgotUsernameEmail(user.email, user.firstName, user.username);
-                        } else {
-                            sendConfirmationEmail(user.email, user.firstName, user.username, user.acceptanceToken);
-                        }
-                        response.status(200).json({sent: true});
-                        response.end();
-                    } else {
-                        response.status(200).json({sent: false});
-                        response.end();
-                    }
-                }).catch(error => console.log(error));
-            } else {
-                response.status(200).json({exists: false});
-                response.end();
-            }
+			User.findOne(query).then(user => {
+				if(!isEmpty(user)) {
+					if(option == "password") {
+						sendResetPasswordEmail(user.email, user.firstName, user.username, user.acceptanceToken);
+					} else if(option == "username") {
+						sendForgotUsernameEmail(user.email, user.firstName, user.username);
+					} else {
+						sendConfirmationEmail(user.email, user.firstName, user.username, user.acceptanceToken);
+					}
+					response.status(200).json({sent: true});
+					response.end();
+				} else {
+					response.status(200).json({sent: false});
+					response.end();
+				}
+			}).catch(error => console.log(error));
+		} else {
+			response.status(200).json({sent: false});
+			response.end();
+		}
     });
     app.put("/resetPassword", (request, response) => {
         var username = request.body.username;
