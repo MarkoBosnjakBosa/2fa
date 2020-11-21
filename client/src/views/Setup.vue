@@ -52,13 +52,13 @@
 
 <script>
     import "bootstrap";
-	import "bootstrap/dist/css/bootstrap.min.css";
+    import "bootstrap/dist/css/bootstrap.min.css";
     var axios = require("axios");
-    
+
     export default {
-		name: "setup",
-		data() {
-			return {
+        name: "setup",
+        data() {
+            return {
                 username: "",
                 authentication: {
                     secret: "",
@@ -68,7 +68,7 @@
                 otpToken: ""
             }
         },
-		methods: {
+        methods: {
             isLoggedIn() {
                 if(!this.$store.getters.isLoggedIn) this.$router.push("/login");
                 this.username = this.$store.getters.getUser;
@@ -130,8 +130,8 @@
             clearOtpTokenStatus() { this.otpTokenError = false; },
         },
         computed: {
-			invalidOtpToken() { return this.otpToken === ""; }
-		},
+            invalidOtpToken() { return this.otpToken === ""; }
+        },
         created() {
             this.isLoggedIn();
             this.getAuthentication();
@@ -157,13 +157,13 @@
     }
     .authenticationSuccessful {
         color: #008000;
-		margin-bottom: 10px;
+        margin-bottom: 10px;
     }
     .errorField {
-		border: 1px solid #ff0000;
-		box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.1), 0 0 6px #ff8080;
-	}
-	.errorInput {
-		color: #ff0000;
-	}
+        border: 1px solid #ff0000;
+        box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.1), 0 0 6px #ff8080;
+    }
+    .errorInput {
+        color: #ff0000;
+    }
 </style>
