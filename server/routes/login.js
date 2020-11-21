@@ -18,7 +18,7 @@ module.exports = function(app, jwt, bcryptjs, speakeasy, models) {
 			response.end();
 		}
 	});
-    app.post("/login", (request, response) => {
+	app.post("/login", (request, response) => {
 		var errorFields = [];
 		var username = request.body.username;
 		if(username && validUsername(username)) {
