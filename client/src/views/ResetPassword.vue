@@ -35,8 +35,8 @@
 			return {
 				passwordError: false,
 				user: {
-                    username: "",
-                    acceptanceToken: "",
+					username: "",
+					acceptanceToken: "",
 					password: ""
 				},
 				passwordReset: false
@@ -96,8 +96,8 @@
 			}
 		},
 		created() {
-            this.user.username = this.$route.query.username;
-            this.user.acceptanceToken = this.$route.query.acceptanceToken;
+			this.user.username = this.$route.query.username;
+			this.user.acceptanceToken = this.$route.query.acceptanceToken;
 		}
 	}
 </script>
@@ -109,9 +109,9 @@
 		text-align: center;
 	}
 	.resetPasswordIcon {
-        margin-top: 20px;
+		margin-top: 20px;
 		margin-bottom: 20px;
-    }
+	}
 	.passwordResetSuccessful {
 		color: #008000;
 		margin-bottom: 10px;
