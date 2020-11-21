@@ -39,31 +39,31 @@
 </template>
 
 <script>
-	import "bootstrap";
-	import "bootstrap/dist/css/bootstrap.min.css";
-	var axios = require("axios");
-	
-	export default {
-		name: "forgotCredentials",
-		data() {
-			return {
+    import "bootstrap";
+    import "bootstrap/dist/css/bootstrap.min.css";
+    var axios = require("axios");
+
+    export default {
+        name: "forgotCredentials",
+        data() {
+            return {
                 emailError: false,
                 option: "password",
                 email: "",
                 emailSent: false
-			}
-		},
-		methods: {
-			sendEmail() {
-				this.clearEmailStatus();
+            }
+        },
+        methods: {
+            sendEmail() {
+                this.clearEmailStatus();
                 if(this.invalidEmail) {
                     this.emailError = true;
                     this.emailSent = false;
                     return;
                 }
                 var body = {option: this.option, email: this.email};
-				axios.post(process.env.VUE_APP_BASE_URL + process.env.VUE_APP_SERVER_PORT + "/forgotCredentials", body).then(response => {
-					if(response.data.sent) {
+                axios.post(process.env.VUE_APP_BASE_URL + process.env.VUE_APP_SERVER_PORT + "/forgotCredentials", body).then(response => {
+                    if(response.data.sent) {
                         this.emailSent = true;
                         this.option = "password";
                         this.email = "";
@@ -72,27 +72,27 @@
                         this.emailError = true;
                         this.emailSent = false;
                     }
-				}).catch(error => console.log(error));
+                }).catch(error => console.log(error));
             },
             login() {
-				this.$router.push("/login");
-			},
-			clearEmailStatus() { 
+                this.$router.push("/login");
+            },
+            clearEmailStatus() { 
                 this.emailError = false;
                 this.emailSent = false; 
             }
-		},
-		computed: {
-			invalidEmail() {
-				var emailFormat = /\S+@\S+\.\S+/;
-				if(this.email != "" && emailFormat.test(this.email)) {
-					return false;
-				} else {
-					return true;
-				}
-			}
-		}
-	}
+        },
+        computed: {
+            invalidEmail() {
+                var emailFormat = /\S+@\S+\.\S+/;
+                if(this.email != "" && emailFormat.test(this.email)) {
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+        }
+    }
 </script>
 
 <style scoped>
@@ -102,21 +102,21 @@
     }
     .forgotCredentialsIcon {
         margin-top: 20px;
-		margin-bottom: 20px;
+        margin-bottom: 20px;
         text-align: center;
     }
     .emailDiv, .submitDiv, .loginDiv {
         text-align: center;
     }
     .emailSentSuccessful {
-		color: #008000;
-		margin-bottom: 10px;
-	}
+        color: #008000;
+        margin-bottom: 10px;
+    }
     .errorField {
-		border: 1px solid #ff0000;
-		box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.1), 0 0 6px #ff8080;
-	}
-	.errorInput {
-		color: #ff0000;
-	}
+        border: 1px solid #ff0000;
+        box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.1), 0 0 6px #ff8080;
+    }
+    .errorInput {
+        color: #ff0000;
+    }
 </style>
