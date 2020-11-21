@@ -1,10 +1,10 @@
 module.exports = function(app, bcryptjs, models, transporter, emailUser, baseUrl, port, resetPasswordUrl) {
-    const User = models.User;
-    app.post("/forgotCredentials", (request, response) => {
-        var email = request.body.email;
-        var option = request.body.option;
-        if(email && isValidEmail(email) && option) {
-            var query = {email: email}; 
+	const User = models.User;
+	app.post("/forgotCredentials", (request, response) => {
+		var email = request.body.email;
+		var option = request.body.option;
+		if(email && isValidEmail(email) && option) {
+			var query = {email: email}; 
 			User.findOne(query).then(user => {
 				if(!isEmpty(user)) {
 					if(option == "password") {
@@ -25,10 +25,10 @@ module.exports = function(app, bcryptjs, models, transporter, emailUser, baseUrl
 			response.status(200).json({sent: false});
 			response.end();
 		}
-    });
+	});
     app.put("/resetPassword", (request, response) => {
-        var username = request.body.username;
-        var acceptanceToken = request.body.acceptanceToken;
+		var username = request.body.username;
+		var acceptanceToken = request.body.acceptanceToken;
 		var password = request.body.password;
 		if(username && password && isValidPassword(password)) {
 			var query = {$and: [{username: username}, {acceptanceToken: acceptanceToken}]}; 
@@ -52,7 +52,7 @@ module.exports = function(app, bcryptjs, models, transporter, emailUser, baseUrl
 		}
 	});
     
-    function sendResetPasswordEmail(email, firstName, username, acceptanceToken) {
+	function sendResetPasswordEmail(email, firstName, username, acceptanceToken) {
 		var mailOptions = {
 			from: emailUser,
 			to: email,
@@ -115,7 +115,7 @@ module.exports = function(app, bcryptjs, models, transporter, emailUser, baseUrl
 			return false;
 		}
     }
-    function isEmpty(object) {
+	function isEmpty(object) {
 		return !object || Object.keys(object).length === 0;
 	}
 }
