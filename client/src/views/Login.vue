@@ -18,7 +18,7 @@
 				<small v-if="passwordError && submitting" class="form-text errorInput">Please provide a valid password!</small>
 			</div>
 			<div v-if="noPasswordMatch" class="form-group loginFailed">Password does not match!</div>
-			<div class="form-group forgotCredentials">
+			<div class="form-group forgotCredentialsDiv">
 				<a href="#" @click="forgotCredentials()">Forgot credentials?</a>
 			</div>
 			<div class="form-group submitDiv">
@@ -166,7 +166,7 @@
 		margin-top: 20px;
 		margin-bottom: 20px;
 	}
-	.forgotCredentials {
+	.forgotCredentialsDiv {
 		text-align: right;
 	}
 	.submitButton {
