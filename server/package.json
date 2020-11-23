@@ -1,7 +1,7 @@
 {
 	"name": "2fa",
 	"version": "1.0.0",
-	"description": "2fa - Two-factor authentication application",
+	"description": "Two-factor authentication application",
 	"main": "app.js",
 	"scripts": {
 		"watch": "nodemon ./app.js"
