@@ -43,7 +43,7 @@
                     </div>
                 </div>
                 <div class="col-md-2">
-                    <button type="button" class="btn btn-danger" @click="disableAuthentication()">Disable</button>
+                    <button v-if="authentication.secret" type="button" class="btn btn-danger" @click="disableAuthentication()">Disable</button>
                 </div>
             </div>
         </div>
