@@ -41,7 +41,7 @@ database.on("open", function() {
 });
 
 app.listen(port, function() {
-	console.log("Tasks app listening on " + baseUrl + port + "!");
+	console.log("2fa app listening on " + baseUrl + port + "!");
 });
 
 function getTransporter() {
